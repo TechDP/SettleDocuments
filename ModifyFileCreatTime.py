@@ -6,33 +6,53 @@ import time
 import sys
 import os
 
-if len(sys.argv)<5:
-  pfile = os.path.basename(sys.argv[0])
-  print("USAGE:\n\t%s <createTime> <modifyTime> <accessTime> <FileName>\n" % pfile)
-  print("EXAMPLE:")
-  print('%s "01.01.2000 00:00:00" "01.01.2000 00:00:00" "01.01.2000 00:00:00" file' % (pfile))
-  # sys.exit()  
+# get arguments   
+# pfile = "TestModifyProgram.txt"
+# cTime = "01.01.2001 00:00:00"
+# mTime = "01.01.2001 00:00:00"
+# aTime = "01.01.2001 00:00:00"
+fName = "TestModifyProgram.txt"
 
-# get arguments  
-# cTime = sys.argv[1] # create
-# mTime = sys.argv[2] # modify
-# aTime = sys.argv[3] # access
-# fName = sys.argv[4]
-
-# get arguments  
-cTime = "01.01.2001 00:00:00"
-mTime = "01.01.2001 00:00:00"
-aTime = "01.01.2001 00:00:00"
-fName = "ModifyFileCreatTime.py"
+cTime = mTime = aTime = ""
 
 # specify time format
 format = "%d.%m.%Y %H:%M:%S"
 offset = 0 # in seconds
 
+def is_valid_date(str):
+    try:
+        time.strptime(str, format)
+        return True
+    except:
+        print("请输入正确时间：")
+        return False
+
+# 需要增加输入数据的判断
+while False == is_valid_date(cTime):
+    gettime_Year = input("输入时间（年份）：")
+    if int(gettime_Year) < 1960:
+        print("输入时间年份需要大于1960年。")
+        continue
+    gettime_Mouth = input("输入时间（月份）：")
+    getTime_Day = input("输入时间（日期）：")
+    getTime_Hour = input("输入时间（小时）：")
+    getTime_Minute = input("输入时间（分钟）")
+    getTime_Second = input("输入时间（秒）")
+    getTime_InterVal = input("输入下一个文件的间隔时间：")
+    cTime = mTime = aTime = ("%s.%s.%s %s:%s:%s"%(getTime_Day, gettime_Mouth, gettime_Year, getTime_Hour, getTime_Minute, getTime_Second))
+
+
 # create struct_time object
-cTime_t = time.localtime(time.mktime(time.strptime(cTime,format))+offset)
+# strptime(),转换时间格式的函数
+# mktime(),把时间转换成用秒数表示的浮点数
+cTime_t =time.localtime(time.mktime(time.strptime(cTime,format))+offset)
 mTime_t = time.localtime(time.mktime(time.strptime(mTime,format))+offset)
 aTime_t = time.localtime(time.mktime(time.strptime(aTime,format))+offset)
+
+print(time.strptime(cTime, format))
+print(time.mktime(time.strptime(cTime, format)))
+print(time.localtime(time.mktime(time.strptime(aTime,format))+offset))
+
 
 # visually check if conversion was ok
 print()
