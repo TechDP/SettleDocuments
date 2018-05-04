@@ -4,11 +4,10 @@ from struct import *
 
 arrayint = [1,2,3]
 print(bytearray(arrayint))
-test = 2
 print(bytes(hex(2),encoding = 'utf-8'))
 print(random.randint(0, 0xF))
 
-filecounter = 16
+filecounter = 64
 while filecounter > 0:
 	print('creat',filecounter)
 	counter = 1024 * 128

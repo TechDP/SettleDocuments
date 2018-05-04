@@ -11,7 +11,7 @@ import os
 # cTime = "01.01.2001 00:00:00"
 # mTime = "01.01.2001 00:00:00"
 # aTime = "01.01.2001 00:00:00"
-fName = "TestModifyProgram.txt"
+fName = "test1.bin"
 
 cTime = mTime = aTime = ""
 
@@ -45,15 +45,17 @@ while False == is_valid_date(cTime):
 # create struct_time object
 # strptime(),转换时间格式的函数
 # mktime(),把时间转换成用秒数表示的浮点数
-cTime_t =time.localtime(time.mktime(time.strptime(cTime,format))+offset)
+cTime_t = time.localtime(time.mktime(time.strptime(cTime,format))+offset)
 mTime_t = time.localtime(time.mktime(time.strptime(mTime,format))+offset)
 aTime_t = time.localtime(time.mktime(time.strptime(aTime,format))+offset)
+# print("cTime", cTime)
+# print("1", cTime_t)
 
 print(time.strptime(cTime, format))
 print(time.mktime(time.strptime(cTime, format)))
 print(time.localtime(time.mktime(time.strptime(aTime,format))+offset))
 
-
+# print("2", cTime_t)
 # visually check if conversion was ok
 print()
 print("FileName: %s" % fName)
@@ -61,7 +63,7 @@ print("Create  : %s --> %s OK" % (cTime,time.strftime(format,cTime_t)))
 print("Modify  : %s --> %s OK" % (mTime,time.strftime(format,mTime_t)))
 print("Access  : %s --> %s OK" % (aTime,time.strftime(format,aTime_t)))
 print()
-
+# print("3", cTime_t)
 # change timestamp of file
 fh = CreateFile(fName, GENERIC_READ | GENERIC_WRITE, 0, None, OPEN_EXISTING, 0, 0) 
 createTime, accessTime, modifyTime = GetFileTime(fh) 
@@ -69,10 +71,12 @@ print("Change Create from",createTime,"to %s" % (time.strftime(format,cTime_t)))
 print("Change Modify from",modifyTime,"to %s" % (time.strftime(format,mTime_t)))
 print("Change Access from",accessTime,"to %s" % (time.strftime(format,aTime_t)))
 print()
-
+# print("4", cTime_t)
+print(createTime)
 createTime = Time(time.mktime(cTime_t))
 accessTime   = Time(time.mktime(aTime_t))
 modifyTime    = Time(time.mktime(mTime_t))
+print(createTime, accessTime, modifyTime)
 SetFileTime(fh, createTime, accessTime, modifyTime) 
 CloseHandle(fh)
 
