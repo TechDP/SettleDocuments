@@ -47,10 +47,19 @@ def splitfile(fromfile, SplitFileName, chunksize, filetime, InterVal):
 if __name__=='__main__':
     cTime = ""
     getfilename = ""
+    SingleFileSizeAfterSplit = 128 * 1024
     while not os.path.exists(getfilename):
         getfilename  = input('要拆分文件名？')
         if not os.path.exists(getfilename):
             print(getfilename + "文件不存在")
+    getSplitFileSize = input("拆分后单个文件的大小？")
+    if 'M' == getSplitFileSize[-1] or 'm' == getSplitFileSize[-1]:
+        SingleFileSizeAfterSplit = int(getSplitFileSize[:-1]) * 1024 * 1024
+        # print(SingleFileSizeAfterSplit)
+    if 'K' == getSplitFileSize[-1] or 'k' == getSplitFileSize[-1]:
+        SingleFileSizeAfterSplit = int(getSplitFileSize[:-1]) * 1024
+        # print(SingleFileSizeAfterSplit)
+    # print(getSplitFileSize)
     getSplitFileName_1 = input("拆分后文件命名的温度？")
     getSplitFileName_2 = input("拆分后文件命名的频率？")
     while False == is_valid_date(cTime):
@@ -66,7 +75,7 @@ if __name__=='__main__':
         getTime_InterVal = int(input("输入下一个文件的间隔时间："))
         cTime = mTime = aTime = ("%s.%s.%s %s:%s:%s"%(getTime_Day, gettime_Mouth, gettime_Year, getTime_Hour, getTime_Minute, getTime_Second))
     SplitFileName = str(getSplitFileName_1) + '_' + str(getSplitFileName_2) + '_' + str(gettime_Mouth) + '_' + str(getTime_Day) + '_' + str(getTime_Hour) + '_' + str(getTime_Minute) + '_'
-    splitfile(getfilename, SplitFileName, 128 * 1024, cTime, getTime_InterVal)
+    splitfile(getfilename, SplitFileName, SingleFileSizeAfterSplit, cTime, getTime_InterVal)
     # getfilename = "testreadwrite.bin"
     # gettime_Year = 1985
     # gettime_Mouth = 5

@@ -2,3 +2,12 @@
 *.bin
 *.txt
 *.exe
+*.toc
+*.spec
+*.dat
+*.pyz
+*.pkg
+*.pyc
+*.manifest
+*.zip
+*.html
