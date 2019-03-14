@@ -18,3 +18,6 @@ while filecounter > 0:
 		fbwrite.close()
 	print('creat',filecounter,'done')
 	filecounter -= 1
+
+while True:
+	pass
